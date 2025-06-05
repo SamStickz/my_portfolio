@@ -1,0 +1,109 @@
+import { motion } from "framer-motion";
+import { FiArrowUpRight } from "react-icons/fi";
+import { FaGithub } from "react-icons/fa";
+
+import projectImg1 from "../assets/project1.png";
+import projectImg2 from "../assets/project2.png";
+import projectImg3 from "../assets/project3.png";
+
+const projects = [
+  {
+    title: "Portfolio Website",
+    description: "A personal portfolio built with React and Tailwind CSS.",
+    image: projectImg1,
+    liveLink: "https://your-portfolio.vercel.app",
+    codeLink: "https://github.com/yourusername/portfolio",
+    tech: ["React", "Tailwind CSS", "Framer Motion"],
+  },
+  {
+    title: "Weather App",
+    description: "Weather forecast app using OpenWeather API and React hooks.",
+    image: projectImg2,
+    liveLink: "https://your-weather.vercel.app",
+    codeLink: "https://github.com/yourusername/weather-app",
+    tech: ["React", "API", "CSS"],
+  },
+  {
+    title: "E-commerce UI",
+    description: "Responsive ecommerce frontend with cart and product pages.",
+    image: projectImg3,
+    liveLink: "https://your-shop.vercel.app",
+    codeLink: "https://github.com/yourusername/shop-ui",
+    tech: ["Next.js", "Tailwind CSS", "Stripe"],
+  },
+];
+
+function ProjectsSection() {
+  return (
+    <section className="bg-[#020c1b] py-16 px-6">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-3xl font-bold text-[#f9cb80] mb-10">Projects</h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {projects.map((project, index) => (
+            <motion.div
+              key={index}
+              className="flex flex-col border border-[#f9cb80] rounded-lg overflow-hidden shadow-md hover:scale-[1.03] transition-transform duration-300 h-full bg-[#1a1a1a]"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <div className="relative overflow-hidden group">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+
+              <div className="p-5 flex flex-col justify-between flex-1">
+                <div>
+                  <h3 className="text-xl text-[#f9cb80] font-semibold mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="mb-4 text-white hover:text-[#f9cb80] transition duration-300">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {project.tech.map((tech, i) => (
+                      <span
+                        key={i}
+                        className="text-xs bg-[#0a192f] text-white px-2 py-1 rounded-full"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-auto flex space-x-6">
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-white hover:text-[#f9cb80] transition duration-300"
+                  >
+                    Live <FiArrowUpRight size={14} />
+                  </a>
+                  <a
+                    href={project.codeLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-white hover:text-[#f9cb80] transition duration-300"
+                  >
+                    Code <FaGithub size={14} />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default ProjectsSection;

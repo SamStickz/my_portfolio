@@ -29,6 +29,8 @@ function App() {
   const [active, setActive] = useState("hero");
   const [isOpen, setIsOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [showIntro, setShowIntro] = useState(true);
+
   const sectionRefs = useRef({});
   const audioRef = useRef(null);
 
@@ -54,7 +56,7 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Cursor
+  // Cursor dot
   useEffect(() => {
     const dot = document.getElementById("cursor-dot");
     const move = (e) => {
@@ -67,14 +69,14 @@ function App() {
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  // Music Autoplay
+  // Music autoplay after entering
   useEffect(() => {
-    if (audioRef.current && !isMuted) {
-      audioRef.current
-        .play()
-        .catch(() => console.warn("Autoplay blocked by browser"));
+    if (!showIntro && audioRef.current && !isMuted) {
+      audioRef.current.play().catch(() => {
+        console.warn("Autoplay blocked by browser");
+      });
     }
-  }, [isMuted]);
+  }, [showIntro, isMuted]);
 
   const toggleMute = () => {
     if (!audioRef.current) return;
@@ -93,16 +95,31 @@ function App() {
       {/* Cursor Dot */}
       <div id="cursor-dot" className="cursor-dot"></div>
 
-      {/* Background Music */}
+      {/* Music Player */}
       <audio ref={audioRef} src={music} loop />
 
-      {/* Mute/Unmute Toggle Button */}
-      <button
-        onClick={toggleMute}
-        className="fixed bottom-5 right-5 z-50 bg-[#f9cb80] text-[#020c1b] p-3 rounded-full shadow-md hover:bg-[#d2a860] transition"
-      >
-        {isMuted ? <FiVolumeX size={20} /> : <FiVolume2 size={20} />}
-      </button>
+      {/* Mute/Unmute Button */}
+      {!showIntro && (
+        <button
+          onClick={toggleMute}
+          className="fixed bottom-5 right-5 z-50 bg-[#f9cb80] text-[#020c1b] p-3 rounded-full shadow-md hover:bg-[#d2a860] transition"
+        >
+          {isMuted ? <FiVolumeX size={20} /> : <FiVolume2 size={20} />}
+        </button>
+      )}
+
+      {/* Intro Overlay */}
+      {showIntro && (
+        <div className="fixed inset-0 z-[999] bg-[#020c1b] text-white flex items-center justify-center flex-col transition-all duration-500">
+          <h1 className="text-3xl mb-6 font-bold text-[#f9cb80]">Welcome</h1>
+          <button
+            onClick={() => setShowIntro(false)}
+            className="bg-[#f9cb80] text-[#020c1b] px-6 py-2 text-lg rounded-lg shadow-md hover:bg-[#d2a860] transition"
+          >
+            Enter Site
+          </button>
+        </div>
+      )}
 
       {/* Desktop Nav */}
       <nav
@@ -140,7 +157,7 @@ function App() {
         </div>
       </nav>
 
-      {/* Mobile Nav */}
+      {/* Mobile Top Nav */}
       <div
         className={`md:hidden fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between transition-all duration-500 ${
           active !== "hero" ? "bg-[#020c1b] backdrop-blur-md" : "bg-transparent"
@@ -166,6 +183,7 @@ function App() {
         </button>
       </div>
 
+      {/* Mobile Slide-in Nav */}
       {isOpen && (
         <div className="fixed inset-0 bg-[#020c1bcc] backdrop-blur-sm z-40 flex flex-col items-center justify-center space-y-8 transition duration-300">
           {navItems.map((item) => (
@@ -185,7 +203,7 @@ function App() {
         </div>
       )}
 
-      {/* Main Sections */}
+      {/* Sections */}
       <main className="relative z-0">
         <section id="hero" ref={(el) => (sectionRefs.current.hero = el)}>
           <motion.div

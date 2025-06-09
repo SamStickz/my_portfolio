@@ -17,6 +17,7 @@ export default {
         playfair: ['"Playfair Display"', "serif"],
         poppins: ["Poppins", "sans-serif"],
         cinzel: ["Cinzel", "serif"],
+        outfit: ["Outfit", "sans-serif"],
       },
     },
   },

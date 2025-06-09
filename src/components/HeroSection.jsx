@@ -85,7 +85,7 @@ function HeroSection() {
             View Projects
           </a>
           <a
-            href="/resume.pdf"
+            href="Samuel-Adeleye.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-2 bg-black text-white rounded-full hover:bg-gray-900 transition duration-300"

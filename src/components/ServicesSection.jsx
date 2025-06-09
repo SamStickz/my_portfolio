@@ -6,19 +6,25 @@ const services = [
     title: "UI/UX Design",
     short: "Beautiful and user-centric web designs",
     details:
-      "Crafting interfaces that are not only visually appealing but also provide an intuitive user experience, focusing on usability, accessibility, and engagement.",
+      "Crafting interfaces that are not only visually appealing but also provide an intuitive user experience.\n\nI focus on usability, accessibility, and creating seamless digital journeys for users across platforms and devices.\n\nDesign tools I frequently use include Figma, Adobe XD, and Pen & Paper.",
   },
   {
     title: "Frontend Development",
     short: "Responsive, scalable and fast",
     details:
-      "Building modern frontend applications using React, TailwindCSS, and other best practices to ensure clean code and responsive design across all devices.",
+      "Building modern frontend applications using React, TailwindCSS, and industry best practices.\n\nI write clean, modular code and optimize for performance, scalability, and maintainability.\n\nWhether it's a landing page or a complex dashboard, I ensure everything feels smooth and performs fast.",
   },
   {
     title: "Website Optimization",
     short: "Performance and SEO enhancements",
     details:
-      "Improving site speed, mobile friendliness, and search engine visibility to give your website a competitive edge and better user experience.",
+      "Improving site speed, mobile responsiveness, and technical SEO for better user experience and discoverability.\n\nI audit pages using tools like Lighthouse and PageSpeed Insights, and implement fixes like image compression, lazy loading, structured data, and SEO meta tags.",
+  },
+  {
+    title: "Other Information",
+    short: "Soft skills and extra capabilities",
+    details:
+      "Fluency in English, German and Portuguese.\n\nSelf-taught with a passion for learning new things.\n\nHelpful and punctual.\n\nAdapted to remote work.",
   },
 ];
 
@@ -35,7 +41,7 @@ export default function ServicesSection() {
           Here’s what I can help you with professionally
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, idx) => (
             <motion.div
               key={idx}
@@ -69,7 +75,7 @@ export default function ServicesSection() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="bg-[#112240] p-6 rounded-lg max-w-lg w-full text-white relative"
+            className="bg-[#112240] p-6 rounded-lg max-w-lg w-full text-white relative whitespace-pre-line min-h-[300px]"
           >
             <h3 className="text-2xl font-bold mb-3 text-[#f9cb80]">
               {selected.title}

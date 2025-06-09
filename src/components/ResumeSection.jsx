@@ -7,7 +7,7 @@ function ResumeSection() {
           Download my resume below to learn more about my skills and experience.
         </p>
         <a
-          href="/your-resume.pdf"
+          href="/Samuel-Adeleye.pdf"
           download
           className="px-6 py-2 bg-[#f9cb80] text-black rounded hover:opacity-80 transition"
         >

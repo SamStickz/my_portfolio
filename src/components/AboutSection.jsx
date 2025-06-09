@@ -10,10 +10,10 @@ function AboutSection() {
       viewport={{ once: true, amount: 0.3 }}
     >
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#f9cb80] mb-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-[#f9cb80] mb-6 font-outfit">
           About Me
         </h2>
-        <p className="text-gray-300 text-lg leading-relaxed">
+        <p className="text-gray-300 text-lg leading-relaxed font-outfit">
           I’m a frontend developer with a passion for crafting beautiful,
           responsive, and high-performance web applications. I specialize in
           React, Tailwind CSS, and building immersive user experiences with

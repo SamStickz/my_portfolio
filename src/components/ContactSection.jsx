@@ -45,39 +45,27 @@ function ContactSection() {
           </div>
 
           {/* RIGHT: Contact Form */}
-          <form
-            action="https://formspree.io/f/mbjbzwro"
-            method="POST"
-            className="flex-1 w-full max-w-md space-y-4"
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              required
-              className="w-full p-2 bg-transparent border border-gray-600 rounded text-white"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              required
-              className="w-full p-2 bg-transparent border border-gray-600 rounded text-white"
-            />
-            <textarea
-              name="message"
-              placeholder="Message"
-              rows="5"
-              required
-              className="w-full p-2 bg-transparent border border-gray-600 rounded text-white"
-            />
-            <button
-              type="submit"
-              className="w-full bg-[#f9cb80] text-black py-2 rounded hover:opacity-80 transition"
-            >
-              Send Message
-            </button>
-          </form>
+          const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+
+  const res = await fetch("https://formspark.io/f/4pHbQyZXm", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (res.ok) {
+    alert("Message sent!");
+  } else {
+    alert("Error sending message.");
+  }
+};
+
+// in your form
+<form onSubmit={handleSubmit} className="...">
+  {/* input fields */}
+</form>
+
         </div>
       </motion.div>
     </section>

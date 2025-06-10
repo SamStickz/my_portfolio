@@ -9,15 +9,17 @@ import projectImg3 from "../assets/project3.png";
 const projects = [
   {
     title: "Portfolio Website",
-    description: "A personal portfolio built with React and Tailwind CSS.",
+    description:
+      "Samuel Adeleye's Portfolio is a modern, responsive web portfolio that showcases creative web development projects, skills, and professional background. Designed with React, Tailwind CSS, and Framer Motion, it delivers smooth animations, clean layouts, and a personal brand experience across desktop and mobile devices.",
     image: projectImg1,
     liveLink: "https://your-portfolio.vercel.app",
     codeLink: "https://github.com/yourusername/portfolio",
     tech: ["React", "Tailwind CSS", "Framer Motion"],
   },
   {
-    title: "Weather App",
-    description: "Weather forecast app using OpenWeather API and React hooks.",
+    title: "CoinTracker App",
+    description:
+      "CoinTracker is a sleek and responsive web application that lets users track real-time cryptocurrency prices, monitor market trends, and manage their digital asset portfolio—all in one place. Built with React and styled using Tailwind CSS, it delivers a seamless experience across both desktop and mobile devices.",
     image: projectImg2,
     liveLink: "https://your-weather.vercel.app",
     codeLink: "https://github.com/yourusername/weather-app",

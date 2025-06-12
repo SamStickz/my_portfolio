@@ -26,12 +26,14 @@ const projects = [
     tech: ["React", "API", "CSS"],
   },
   {
-    title: "E-commerce UI",
-    description: "Responsive ecommerce frontend with cart and product pages.",
-    image: projectImg3,
-    liveLink: "https://your-shop.vercel.app",
-    codeLink: "https://github.com/yourusername/shop-ui",
-    tech: ["Next.js", "Tailwind CSS", "Stripe"],
+      title: "HomeSavvy Real Estate",
+      description:
+        "HomeSavvy is a responsive real estate web application that helps users discover, filter, and explore property listings across various locations. Designed with React and Tailwind CSS, it features intuitive search filters, a carousel of current listings, and a sleek user interface optimized for both desktop and mobile views.",
+      image: projectImg3,
+      liveLink: "https://sam-home-savvy.vercel.app/",
+      codeLink: "https://github.com/SamStickz/home-savvy",
+      tech: ["React", "Tailwind CSS", "SwiperJS"],
+    
   },
 ];
 

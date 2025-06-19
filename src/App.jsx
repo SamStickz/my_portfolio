@@ -16,6 +16,7 @@ import ResumeSection from "./components/ResumeSection";
 import ContactSection from "./components/ContactSection";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Footer from "./components/Footer";
+import MyApproachSection from "./components/MyApproachSection";
 
 const navItems = [
   { id: "hero", label: "Home" },
@@ -231,6 +232,14 @@ function App() {
         <TechnicalSkillsSection />
         <SkillRatingSection />
         <QualificationSection />
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <MyApproachSection />
+        </motion.div>
 
         <section
           id="projects"

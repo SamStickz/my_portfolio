@@ -2,14 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Cinzel:wght@600&family=Poppins:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
 
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   @apply bg-gradient-to-b from-[#0f0f0f] via-[#151515] to-[#1a1a1a] text-gray-200 scroll-smooth font-sans;
+  cursor: none;
+  background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
 }
 
 ::-webkit-scrollbar {
@@ -19,14 +19,10 @@ body {
   background: #555;
   border-radius: 3px;
 }
-body {
-  cursor: none;
-  background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
-}
+
 .glow {
   text-shadow: 0 0 10px #f9cb80, 0 0 20px #f9cb80;
 }
-
 
 .cursor-dot {
   width: 8px;
@@ -39,5 +35,5 @@ body {
   transition: background-color 0.3s ease;
   background-color: white;
   box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
-  }
-  
+}
+

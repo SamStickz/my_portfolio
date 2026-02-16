@@ -55,7 +55,7 @@ function BookCallSection() {
             </div>
 
             <motion.a
-              href="https://cal.com/samueladeleye/15min"
+              href="https://cal.eu/samstickz/15min"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}

@@ -33,8 +33,19 @@ function AppContent() {
   const { theme, toggleTheme } = useTheme();
   const [active, setActive] = useState("hero");
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const sectionRefs = useRef({});
+
+  // Detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0); // True immediately when scrolling starts
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Scrollspy
   useEffect(() => {
@@ -93,7 +104,7 @@ function AppContent() {
       {/* Desktop Nav */}
       <nav
         className={`hidden md:flex fixed top-0 left-0 w-full z-50 px-8 py-4 justify-between items-center transition-all duration-500 ${
-          active !== "hero"
+          isScrolled
             ? "bg-[#020c1b]/95 backdrop-blur-md shadow-md"
             : "bg-transparent"
         }`}
@@ -129,9 +140,7 @@ function AppContent() {
       {/* Mobile Top Nav */}
       <div
         className={`md:hidden fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between transition-all duration-500 ${
-          active !== "hero"
-            ? "bg-[#020c1b]/95 backdrop-blur-md"
-            : "bg-transparent"
+          isScrolled ? "bg-[#020c1b]/95 backdrop-blur-md" : "bg-transparent"
         }`}
       >
         <div className="flex items-center space-x-2">

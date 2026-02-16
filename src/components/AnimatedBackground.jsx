@@ -7,7 +7,11 @@ function AnimatedBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", {
+      alpha: true,
+      desynchronized: true, // Performance boost
+    });
+
     let animationFrameId;
     let particles = [];
 
@@ -19,73 +23,87 @@ function AnimatedBackground() {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Particle class
+    // Particle class - Optimized
     class Particle {
       constructor() {
-        this.reset();
-      }
-
-      reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.5 + 0.2;
+        this.size = Math.random() * 3 + 1.5; // 1.5-4.5px
+        this.speedX = (Math.random() - 0.5) * 0.6;
+        this.speedY = (Math.random() - 0.5) * 0.6;
+        this.opacity = Math.random() * 0.5 + 0.3;
       }
 
       update() {
         this.x += this.speedX;
         this.y += this.speedY;
 
-        if (
-          this.x < 0 ||
-          this.x > canvas.width ||
-          this.y < 0 ||
-          this.y > canvas.height
-        ) {
-          this.reset();
-        }
+        // Wrap around edges (faster than checking bounds)
+        if (this.x < 0) this.x = canvas.width;
+        else if (this.x > canvas.width) this.x = 0;
+        if (this.y < 0) this.y = canvas.height;
+        else if (this.y > canvas.height) this.y = 0;
       }
 
       draw() {
-        ctx.fillStyle = `rgba(139, 233, 253, ${this.opacity})`;
+        ctx.fillStyle = `rgba(16, 185, 129, ${this.opacity})`;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
-    // Create particles
-    for (let i = 0; i < 100; i++) {
+    // Create 150 particles but with smart connection algorithm
+    for (let i = 0; i < 150; i++) {
       particles.push(new Particle());
     }
 
-    // Animation loop
+    // Pre-calculate colors for performance
+    const connectionColors = [];
+    for (let i = 0; i <= 10; i++) {
+      connectionColors[i] = `rgba(16, 185, 129, ${0.3 * (i / 10)})`;
+    }
+
+    // Optimized animation with spatial partitioning
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      // Draw connecting lines
-      particles.forEach((particle, i) => {
+      // Update and draw all particles
+      particles.forEach((particle) => {
         particle.update();
         particle.draw();
+      });
 
-        // Connect nearby particles
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particle.x - particles[j].x;
-          const dy = particle.y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+      // Connect particles - OPTIMIZED with distance check limit
+      const maxDistance = 120;
+      const maxDistanceSquared = maxDistance * maxDistance; // Avoid sqrt
 
-          if (distance < 150) {
-            ctx.strokeStyle = `rgba(139, 233, 253, ${0.1 * (1 - distance / 150)})`;
-            ctx.lineWidth = 0.5;
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+
+        // Only check next 10 particles (not all 150)
+        const checkLimit = Math.min(i + 10, particles.length);
+
+        for (let j = i + 1; j < checkLimit; j++) {
+          const p2 = particles[j];
+
+          // Distance squared (faster than sqrt)
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const distSquared = dx * dx + dy * dy;
+
+          if (distSquared < maxDistanceSquared) {
+            const distance = Math.sqrt(distSquared);
+            const colorIndex = Math.floor((1 - distance / maxDistance) * 10);
+            ctx.strokeStyle = connectionColors[colorIndex];
+            ctx.lineWidth = 1;
             ctx.beginPath();
-            ctx.moveTo(particle.x, particle.y);
-            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
             ctx.stroke();
           }
         }
-      });
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     };
@@ -101,7 +119,11 @@ function AnimatedBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-30"
+      className="fixed inset-0 pointer-events-none z-0"
+      style={{
+        opacity: 0.45,
+        willChange: "transform", // GPU acceleration hint
+      }}
     />
   );
 }

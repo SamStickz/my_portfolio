@@ -56,7 +56,7 @@ function HeroSection() {
                 Samuel Adeleye
               </h1>
               <p className="text-gray-400 text-sm">
-               Developer • Builder • Web Dev
+                Developer • Builder • Web Dev
               </p>
             </motion.div>
 
@@ -85,14 +85,14 @@ function HeroSection() {
             >
               <a
                 href="#projects"
-                className="flex-1 lg:flex-none lg:px-8 px-6 py-3 bg-[#f9cb80] text-[#020c1b] rounded-lg font-semibold hover:bg-[#f4c36b] transition-all duration-300 text-center text-sm"
+                className="flex-1 lg:flex-none lg:px-8 px-6 py-3 bg-transparent border-2 border-gray-700 text-gray-300 rounded-lg font-semibold hover:border-[#f9cb80] hover:text-[#f9cb80] transition-all duration-300 text-center text-sm flex items-center justify-center"
               >
                 View Projects
               </a>
               <a
                 href="/Samuel-Adeleye.pdf"
                 download
-                className="flex-1 lg:flex-none lg:px-8 px-6 py-3 bg-transparent border-2 border-gray-700 text-gray-300 rounded-lg font-semibold hover:border-[#f9cb80] hover:text-[#f9cb80] transition-all duration-300 text-center text-sm"
+                className="flex-1 lg:flex-none lg:px-8 px-6 py-3 bg-transparent border-2 border-gray-700 text-gray-300 rounded-lg font-semibold hover:border-[#f9cb80] hover:text-[#f9cb80] transition-all duration-300 text-center text-sm flex items-center justify-center"
               >
                 Download Resume
               </a>

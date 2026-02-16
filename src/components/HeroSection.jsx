@@ -56,7 +56,7 @@ function HeroSection() {
                 Samuel Adeleye
               </h1>
               <p className="text-gray-400 text-sm">
-                23 • Developer • Builder • Web Dev
+               Developer • Builder • Web Dev
               </p>
             </motion.div>
 

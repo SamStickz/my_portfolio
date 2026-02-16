@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import profileImg from "../profile.jpg";
+import profileImg from "../assets/banner.jpg";
 import bannerImg from "../assets/banner.jpg";
 import SpotifyWidget from "./SpotifyWidget";
 

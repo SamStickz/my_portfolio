@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import profileImg from "../assets/me.JPG";
 import bannerImg from "../assets/banner.jpg";
 import SpotifyWidget from "./SpotifyWidget";
+import LiveClock from "./LiveClock";
 
 function HeroSection() {
   return (
@@ -75,42 +76,51 @@ function HeroSection() {
               </p>
             </motion.div>
 
-            {/* Spotify Widget */}
+            {/* CTA Buttons - Moved up, side by side on mobile too */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="mb-8"
-            >
-              <SpotifyWidget />
-            </motion.div>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-wrap gap-4"
+              className="flex gap-3 mb-6"
             >
               <a
                 href="#projects"
-                className="px-8 py-3 bg-[#f9cb80] text-[#020c1b] rounded-lg font-semibold hover:bg-[#f4c36b] transition-all duration-300"
+                className="flex-1 px-6 py-3 bg-[#f9cb80] text-[#020c1b] rounded-lg font-semibold hover:bg-[#f4c36b] transition-all duration-300 text-center text-sm"
               >
                 View Projects
               </a>
               <a
                 href="/Samuel-Adeleye.pdf"
                 download
-                className="px-8 py-3 bg-transparent border-2 border-gray-700 text-gray-300 rounded-lg font-semibold hover:border-[#f9cb80] hover:text-[#f9cb80] transition-all duration-300"
+                className="flex-1 px-6 py-3 bg-transparent border-2 border-gray-700 text-gray-300 rounded-lg font-semibold hover:border-[#f9cb80] hover:text-[#f9cb80] transition-all duration-300 text-center text-sm"
               >
                 Download Resume
               </a>
             </motion.div>
+
+            {/* Live Clock Widget - Full width */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="mb-4"
+            >
+              <LiveClock />
+            </motion.div>
+
+            {/* Spotify Widget - Full width */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <SpotifyWidget />
+            </motion.div>
           </div>
 
-          {/* RIGHT COLUMN - Empty space or future widgets */}
-          <div className="lg:w-80">
-            {/* You can add widgets here later if needed */}
+          {/* RIGHT COLUMN - Empty on desktop */}
+          <div className="lg:w-80 hidden lg:block">
+            {/* Empty space for balance */}
           </div>
         </div>
       </div>

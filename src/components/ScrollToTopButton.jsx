@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaArrowUp } from "react-icons/fa";
+import { FiArrowUp } from "react-icons/fi";
 
 function ScrollToTopButton() {
   const [visible, setVisible] = useState(false);
@@ -20,10 +20,10 @@ function ScrollToTopButton() {
     visible && (
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-[#f9cb80] text-black hover:opacity-80 transition"
+        className="fixed bottom-20 right-5 z-[60] p-3 rounded-full bg-[#f9cb80] text-[#020c1b] hover:bg-[#d2a860] transition-all hover:scale-110 shadow-lg"
         aria-label="Scroll to top"
       >
-        <FaArrowUp />
+        <FiArrowUp size={20} />
       </button>
     )
   );

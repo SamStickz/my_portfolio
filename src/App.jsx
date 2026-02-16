@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { FiMenu, FiX, FiVolume2, FiVolumeX } from "react-icons/fi";
+import { FiMenu, FiX, FiSun, FiMoon } from "react-icons/fi";
 
 import signature from "./assets/signature.png";
-import music from "./assets/lofi.mp3";
 
+import { ThemeProvider, useTheme } from "./components/ThemeContext";
+import AnimatedBackground from "./components/AnimatedBackground";
 import HeroSection from "./components/HeroSection";
 import AboutSection from "./components/AboutSection";
 import ServicesSection from "./components/ServicesSection";
@@ -13,6 +14,9 @@ import SkillRatingSection from "./components/SkillRatingSection";
 import QualificationSection from "./components/QualificationSection";
 import ProjectsSection from "./components/ProjectsSection";
 import ResumeSection from "./components/ResumeSection";
+import GitHubActivity from "./components/GitHubActivity";
+import BookCallSection from "./components/BookCallSection";
+import QuoteSection from "./components/QuoteSection";
 import ContactSection from "./components/ContactSection";
 import ScrollToTopButton from "./components/ScrollToTopButton";
 import Footer from "./components/Footer";
@@ -22,18 +26,15 @@ const navItems = [
   { id: "hero", label: "Home" },
   { id: "about", label: "About" },
   { id: "projects", label: "Projects" },
-  { id: "resume", label: "Resume" },
   { id: "contact", label: "Contact" },
 ];
 
-function App() {
+function AppContent() {
+  const { theme, toggleTheme } = useTheme();
   const [active, setActive] = useState("hero");
   const [isOpen, setIsOpen] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [showIntro, setShowIntro] = useState(true);
 
   const sectionRefs = useRef({});
-  const audioRef = useRef(null);
 
   // Scrollspy
   useEffect(() => {
@@ -45,7 +46,7 @@ function App() {
           }
         });
       },
-      { rootMargin: "-50% 0px -50% 0px" }
+      { rootMargin: "-50% 0px -50% 0px" },
     );
 
     navItems.forEach(({ id }) => {
@@ -70,63 +71,30 @@ function App() {
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  // Music autoplay after entering
-  useEffect(() => {
-    if (!showIntro && audioRef.current && !isMuted) {
-      audioRef.current.play().catch(() => {
-        console.warn("Autoplay blocked by browser");
-      });
-    }
-  }, [showIntro, isMuted]);
-
-  const toggleMute = () => {
-    if (!audioRef.current) return;
-
-    if (isMuted) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.pause();
-    }
-
-    setIsMuted(!isMuted);
-  };
-
   return (
-    <div className="bg-[#0f0f0f] text-white font-sans overflow-x-hidden relative">
+    <div className="font-sans overflow-x-hidden relative transition-colors duration-300">
+      {/* Animated Background */}
+      <AnimatedBackground />
+
       {/* Cursor Dot */}
       <div id="cursor-dot" className="cursor-dot"></div>
 
-      {/* Music Player */}
-      <audio ref={audioRef} src={music} loop />
-
-      {/* Mute/Unmute Button */}
-      {!showIntro && (
+      {/* Fixed Controls - Bottom Right - Only Theme Toggle */}
+      <div className="fixed bottom-5 right-5 z-[60]">
         <button
-          onClick={toggleMute}
-          className="fixed bottom-5 right-5 z-50 bg-[#f9cb80] text-[#020c1b] p-3 rounded-full shadow-md hover:bg-[#d2a860] transition"
+          onClick={toggleTheme}
+          className="bg-[#f9cb80] text-[#020c1b] p-3 rounded-full shadow-lg hover:bg-[#d2a860] transition-all hover:scale-110"
+          aria-label="Toggle theme"
         >
-          {isMuted ? <FiVolumeX size={20} /> : <FiVolume2 size={20} />}
+          {theme === "dark" ? <FiSun size={20} /> : <FiMoon size={20} />}
         </button>
-      )}
-
-      {/* Intro Overlay */}
-      {showIntro && (
-        <div className="fixed inset-0 z-[999] bg-[#020c1b] text-white flex items-center justify-center flex-col transition-all duration-500">
-          <h1 className="text-3xl mb-6 font-bold text-[#f9cb80]">Welcome</h1>
-          <button
-            onClick={() => setShowIntro(false)}
-            className="bg-[#f9cb80] text-[#020c1b] px-6 py-2 text-lg rounded-lg shadow-md hover:bg-[#d2a860] transition"
-          >
-            Enter Site
-          </button>
-        </div>
-      )}
+      </div>
 
       {/* Desktop Nav */}
       <nav
         className={`hidden md:flex fixed top-0 left-0 w-full z-50 px-8 py-4 justify-between items-center transition-all duration-500 ${
           active !== "hero"
-            ? "bg-[#020c1b] bg-opacity-95 backdrop-blur-md shadow-md"
+            ? "bg-[#020c1b]/95 backdrop-blur-md shadow-md"
             : "bg-transparent"
         }`}
       >
@@ -141,7 +109,7 @@ function App() {
           </span>
         </div>
 
-        <div className="flex space-x-6">
+        <div className="flex items-center space-x-6">
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -161,7 +129,9 @@ function App() {
       {/* Mobile Top Nav */}
       <div
         className={`md:hidden fixed top-0 left-0 right-0 z-50 px-4 py-3 flex items-center justify-between transition-all duration-500 ${
-          active !== "hero" ? "bg-[#020c1b] backdrop-blur-md" : "bg-transparent"
+          active !== "hero"
+            ? "bg-[#020c1b]/95 backdrop-blur-md"
+            : "bg-transparent"
         }`}
       >
         <div className="flex items-center space-x-2">
@@ -175,7 +145,7 @@ function App() {
           </span>
         </div>
 
-        <button onClick={() => setIsOpen(!isOpen)}>
+        <button onClick={() => setIsOpen(!isOpen)} aria-label="Toggle menu">
           {isOpen ? (
             <FiX size={28} color="#f9cb80" />
           ) : (
@@ -186,7 +156,7 @@ function App() {
 
       {/* Mobile Slide-in Nav */}
       {isOpen && (
-        <div className="fixed inset-0 bg-[#020c1bcc] backdrop-blur-sm z-40 flex flex-col items-center justify-center space-y-8 transition duration-300">
+        <div className="fixed inset-0 bg-[#020c1b]/95 backdrop-blur-sm z-[45] flex flex-col items-center justify-center space-y-8 transition duration-300">
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -205,16 +175,9 @@ function App() {
       )}
 
       {/* Sections */}
-      <main className="relative z-0">
+      <main className="relative z-[1]">
         <section id="hero" ref={(el) => (sectionRefs.current.hero = el)}>
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <HeroSection />
-          </motion.div>
+          <HeroSection />
         </section>
 
         <section id="about" ref={(el) => (sectionRefs.current.about = el)}>
@@ -232,6 +195,7 @@ function App() {
         <TechnicalSkillsSection />
         <SkillRatingSection />
         <QualificationSection />
+
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -255,16 +219,10 @@ function App() {
           </motion.div>
         </section>
 
-        <section id="resume" ref={(el) => (sectionRefs.current.resume = el)}>
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            <ResumeSection />
-          </motion.div>
-        </section>
+        <GitHubActivity />
+        <ResumeSection />
+        <BookCallSection />
+        <QuoteSection />
 
         <section id="contact" ref={(el) => (sectionRefs.current.contact = el)}>
           <motion.div
@@ -281,6 +239,14 @@ function App() {
       <ScrollToTopButton />
       <Footer />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <AppContent />
+    </ThemeProvider>
   );
 }
 

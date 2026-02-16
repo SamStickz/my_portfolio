@@ -23,13 +23,18 @@ function SkillRatingSection() {
                 <span className="text-sm text-gray-400">{skill.percent}%</span>
               </div>
 
-              <div className="w-[70%] bg-gray-800 rounded-full h-2 overflow-hidden">
+              <div className="w-full md:w-[70%] bg-gray-800 rounded-full h-2 overflow-hidden">
                 <motion.div
-                  className="bg-[#4ade80] h-2 rounded-full"
+                  className="h-2 rounded-full"
+                  style={{ backgroundColor: "#4ade80" }}
                   initial={{ width: 0 }}
                   whileInView={{ width: `${skill.percent}%` }}
-                  transition={{ duration: 1.2, ease: "easeInOut" }}
-                  viewport={{ once: true }}
+                  transition={{
+                    duration: 1.2,
+                    ease: "easeInOut",
+                    delay: idx * 0.1,
+                  }}
+                  viewport={{ once: true, amount: 0.3 }}
                 />
               </div>
             </div>

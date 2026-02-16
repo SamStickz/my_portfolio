@@ -12,10 +12,10 @@ function HeroSection() {
         <img
           src={bannerImg}
           alt="Banner"
-          className="w-full h-full object-cover md:object-[center_85%]"
+          className="w-full h-full object-cover"
           style={{
             objectFit: "cover",
-            objectPosition: "center 70%",
+            objectPosition: "center 80%", // Show more of the bottom where mountains are
           }}
         />
         {/* Quote Overlay on Banner */}
@@ -28,8 +28,8 @@ function HeroSection() {
 
       {/* Main Content - LEFT aligned like athrix.me */}
       <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-20">
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* LEFT COLUMN - Profile and Bio */}
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* LEFT COLUMN - Profile, Bio, and Buttons */}
           <div className="flex-1">
             {/* Profile Photo - Smaller, overlapping banner */}
             <motion.div
@@ -76,39 +76,60 @@ function HeroSection() {
               </p>
             </motion.div>
 
-            {/* CTA Buttons - Moved up, side by side on mobile too */}
+            {/* CTA Buttons - Desktop: side by side, Mobile: side by side too */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex gap-3 mb-6"
+              className="flex gap-3 mb-6 lg:mb-0"
             >
               <a
                 href="#projects"
-                className="flex-1 px-6 py-3 bg-[#f9cb80] text-[#020c1b] rounded-lg font-semibold hover:bg-[#f4c36b] transition-all duration-300 text-center text-sm"
+                className="flex-1 lg:flex-none lg:px-8 px-6 py-3 bg-[#f9cb80] text-[#020c1b] rounded-lg font-semibold hover:bg-[#f4c36b] transition-all duration-300 text-center text-sm"
               >
                 View Projects
               </a>
               <a
                 href="/Samuel-Adeleye.pdf"
                 download
-                className="flex-1 px-6 py-3 bg-transparent border-2 border-gray-700 text-gray-300 rounded-lg font-semibold hover:border-[#f9cb80] hover:text-[#f9cb80] transition-all duration-300 text-center text-sm"
+                className="flex-1 lg:flex-none lg:px-8 px-6 py-3 bg-transparent border-2 border-gray-700 text-gray-300 rounded-lg font-semibold hover:border-[#f9cb80] hover:text-[#f9cb80] transition-all duration-300 text-center text-sm"
               >
                 Download Resume
               </a>
             </motion.div>
 
-            {/* Live Clock Widget - Full width */}
+            {/* Widgets on Mobile Only */}
+            <div className="lg:hidden space-y-4 mt-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <LiveClock />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <SpotifyWidget />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN - Widgets (Desktop Only) - Aligned with buttons */}
+          <div className="hidden lg:block lg:w-96 space-y-4 lg:mt-auto">
+            {/* Live Clock Widget */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="mb-4"
             >
               <LiveClock />
             </motion.div>
 
-            {/* Spotify Widget - Full width */}
+            {/* Spotify Widget */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -116,11 +137,6 @@ function HeroSection() {
             >
               <SpotifyWidget />
             </motion.div>
-          </div>
-
-          {/* RIGHT COLUMN - Empty on desktop */}
-          <div className="lg:w-80 hidden lg:block">
-            {/* Empty space for balance */}
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@ import { FiEye } from "react-icons/fi";
 
 function VisitorCounter() {
   // Update this number manually as you get more visitors
-  const visitorCount = 14;
+  const visitorCount = 117;
 
   // Get ordinal suffix (1st, 2nd, 3rd, etc.)
   const getOrdinal = (num) => {

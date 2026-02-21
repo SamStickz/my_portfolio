@@ -20,7 +20,7 @@ function HeroSection() {
         />
         {/* Quote Overlay on Banner */}
         <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/30">
-          <p className="text-white text-base sm:text-lg md:text-xl font-serif italic px-6 text-center drop-shadow-lg">
+          <p className="banner-text text-base sm:text-lg md:text-xl font-serif italic px-6 text-center drop-shadow-lg">
             You make your own luck if you stay at it long enough.
           </p>
         </div>

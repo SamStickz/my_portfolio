@@ -16,7 +16,7 @@ const projects = [
   },
   {
     title: "Sass-Moss E-commerce",
-    image: projectImg3,
+    image: projectImg5,
     liveLink: "https://sassmoss.com/",
     codeLink: "https://github.com/SamStickz/Sassmoss",
     tech: ["React", "API", "CSS", "Stripe"],

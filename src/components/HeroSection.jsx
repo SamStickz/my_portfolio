@@ -71,7 +71,7 @@ function HeroSection() {
                 I build from zero. Whether it's frontend, backend, full-stack
                 applications, or AI-powered experiences, I work across the
                 entire development lifecycle. From UI/UX to deployment to user
-                feedback, I care less about technology debates and more about
+                feedback. I care less about technology debates and more about
                 delivering results that people love using.
               </p>
             </motion.div>

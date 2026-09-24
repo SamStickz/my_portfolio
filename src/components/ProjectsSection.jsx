@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-
 import projectImg1 from "../assets/project1.png";
 import projectImg2 from "../assets/project2.png";
 import projectImg3 from "../assets/project3.png";
@@ -7,13 +5,6 @@ import projectImg4 from "../assets/project4.png";
 import projectImg5 from "../assets/project5.png";
 
 const projects = [
-  {
-    title: "Portfolio Website",
-    image: projectImg1,
-    liveLink: "https://samadeleyeportfolio.vercel.app/",
-    codeLink: "https://github.com/SamStickz/my_portfolio",
-    tech: ["React", "Tailwind", "Framer Motion"],
-  },
   {
     title: "Sass-Moss E-commerce",
     image: projectImg5,
@@ -24,10 +15,16 @@ const projects = [
   {
     title: "EverySinnerHasAFuture",
     image: projectImg4,
-    liveLink:
-      "https://https://www.everysainthasapasteverysinnerhasafuture.com/",
+    liveLink: "https://www.everysainthasapasteverysinnerhasafuture.com/",
     codeLink: "https://github.com/SamStickz/Frank-Skully",
     tech: ["React", "Tailwind"],
+  },
+  {
+    title: "HomeSavvy Real Estate",
+    image: projectImg3,
+    liveLink: "https://sam-home-savvy.vercel.app/",
+    codeLink: "https://github.com/SamStickz/home-savvy",
+    tech: ["React", "Tailwind", "SwiperJS"],
   },
   {
     title: "CoinTracker App",
@@ -37,101 +34,95 @@ const projects = [
     tech: ["React", "API", "CSS"],
   },
   {
-    title: "HomeSavvy Real Estate",
-    image: projectImg3,
-    liveLink: "https://sam-home-savvy.vercel.app/",
-    codeLink: "https://github.com/SamStickz/home-savvy",
-    tech: ["React", "Tailwind", "SwiperJS"],
+    title: "Portfolio Website",
+    image: projectImg1,
+    liveLink: "https://samadeleyeportfolio.vercel.app/",
+    codeLink: "https://github.com/SamStickz/my_portfolio",
+    tech: ["React", "Tailwind", "Framer Motion"],
   },
-  
 ];
 
-// Duplicate projects for infinite loop
-const infiniteProjects = [...projects, ...projects];
+const linkFocus =
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f9cb80] focus-visible:ring-offset-2 focus-visible:ring-offset-[#020c1b]";
 
 function ProjectsSection() {
   return (
-    <section className="bg-[#020c1b] py-12 px-6 overflow-hidden">
-      <div className="max-w-6xl mx-auto mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#f9cb80]">
+    <section id="projects" className="bg-[#020c1b] py-20 px-6">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold text-[#f9cb80] mb-12">
           Projects
         </h2>
-      </div>
 
-      {/* Infinite Scrolling Container */}
-      <div className="relative">
-        <motion.div
-          className="flex gap-6"
-          animate={{
-            x: [0, -1800], // Move by total width of original projects
-          }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 30,
-              ease: "linear",
-            },
-          }}
-        >
-          {infiniteProjects.map((project, index) => (
-            <div
-              key={index}
-              className="group relative overflow-hidden rounded-lg border border-[#f9cb80]/30 hover:border-[#f9cb80] transition-all duration-300 flex-shrink-0 w-[350px]"
-            >
-              {/* Project Image */}
-              <div className="relative overflow-hidden aspect-video">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-                />
-                {/* Always show buttons on hover */}
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
-                  <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-[#f9cb80] text-[#020c1b] rounded-lg font-medium hover:bg-[#f4c36b] transition text-sm z-10"
+        <div className="space-y-16 md:space-y-24">
+          {projects.map((project, i) => {
+            const flipped = i % 2 === 1;
+            return (
+              <article
+                key={project.title}
+                className="grid md:grid-cols-2 gap-6 md:gap-12 items-center"
+              >
+                <a
+                  href={project.liveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`group block overflow-hidden rounded-lg border border-[#f9cb80]/30 hover:border-[#f9cb80] transition-colors ${
+                    flipped ? "md:order-2" : ""
+                  } ${linkFocus}`}
+                >
+                  <img
+                    src={project.image}
+                    alt={`Screenshot of ${project.title}`}
+                    className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </a>
+
+                <div className={flipped ? "md:order-1 md:text-right" : ""}>
+                  <h3 className="text-2xl md:text-4xl font-bold text-[#f9cb80]">
+                    {project.title}
+                  </h3>
+
+                  <ul
+                    className={`mt-4 flex flex-wrap gap-2 ${
+                      flipped ? "md:justify-end" : ""
+                    }`}
                   >
-                    Live
-                  </a>
-                  <a
-                    href={project.codeLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-transparent border-2 border-[#f9cb80] text-[#f9cb80] rounded-lg font-medium hover:bg-[#f9cb80] hover:text-[#020c1b] transition text-sm z-10"
+                    {project.tech.map((tech) => (
+                      <li
+                        key={tech}
+                        className="text-xs bg-[#0a192f] text-gray-300 px-3 py-1 rounded-full"
+                      >
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div
+                    className={`mt-6 flex gap-4 ${
+                      flipped ? "md:justify-end" : ""
+                    }`}
                   >
-                    Code
-                  </a>
-                </div>
-              </div>
-
-              {/* Project Info */}
-              <div className="p-4 bg-[#1a1a1a]">
-                <h3 className="text-base font-semibold text-[#f9cb80] mb-2">
-                  {project.title}
-                </h3>
-
-                {/* Tech Stack Tags */}
-                <div className="flex flex-wrap gap-2">
-                  {project.tech.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="text-xs bg-[#0a192f] text-gray-300 px-2 py-1 rounded-full"
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`px-5 py-2 bg-[#f9cb80] text-[#020c1b] rounded-lg font-medium text-sm hover:bg-[#f4c36b] transition ${linkFocus}`}
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      View live site
+                    </a>
+                    <a
+                      href={project.codeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`px-5 py-2 border-2 border-[#f9cb80] text-[#f9cb80] rounded-lg font-medium text-sm hover:bg-[#f9cb80] hover:text-[#020c1b] transition ${linkFocus}`}
+                    >
+                      View code
+                    </a>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Gradient Fade on edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#020c1b] to-transparent pointer-events-none z-10"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#020c1b] to-transparent pointer-events-none z-10"></div>
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
